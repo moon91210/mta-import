@@ -7,7 +7,7 @@ function load()
 				error("Bad arg #1 to 'import' (string expected)", 3)
 			end
 
-			local content, err = exports.]]..thisResourceName..[[:getFileContents(name)
+			local content, err = exports[]]..thisResourceName..[[]:getFileContents(name)
 
 			if not content then
 				error(string.format("Can't import '%s' (%s)", name, err), 2)
@@ -19,18 +19,15 @@ function load()
 	]]
 end
 
-function getFileContents(path)
-	assert(type(path) == 'string', string.format('[%s]', thisResourceName))
-	
+function getFileContents(path)	
 	path = split(path, '/')
 
-	local resourceName = path[1]
 	local modulePath = table.concat(path, '/', 2)
 
 	if modulePath then
-		path = string.format(':%s/%s.lua', resourceName, modulePath)
+		path = string.format(':%s/%s.lua', path[1], modulePath)
 	else
-		path = string.format('%s.lua', resourceName)
+		path = string.format('%s.lua', path[1])
 	end
 	
 	if fileExists(path) then
