@@ -4,6 +4,17 @@ A substitute for the native lua require for Multi Theft Auto. This allows you to
 
 # how to use
 
+> Note: Files imported on the client need to be referenced in the source meta.xml
+
+MyResource:
+```lua
+loadstring(exports.import:load())()
+
+local utils = import('SomeResource/utils.lua')
+
+print(utils.capitalize('hello')) --> Hello
+```
+
 SomeResource utils file:
 ```lua
 local utils = {}
@@ -17,13 +28,4 @@ function utils.constrain(num, low, high)
 end
 
 return utils
-```
-
-MyResource:
-```lua
-loadstring(exports.import:load())()
-
-local utils = import('SomeResource/utils.lua')
-
-print(utils.capitalize('hello')) --> Hello
 ```
